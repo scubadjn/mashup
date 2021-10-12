@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "typeRoots": ["node_modules/@types", "src/@types"],
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": false,
+      "strict": true,
+      "esModuleInterop": true,
+      "module": "commonjs",
+      "target": "es5",
+      "allowJs": false,
+      "skipLibCheck": true,
+      "baseUrl": ".",
+      "paths": {
+        "@types": [
+          "./src/@types"
+        ],
+        "@server": [
+          "./src/server"
+        ],
+      },
+    },
+    "include": [
+      "src/**/*"
+    ]
+  }
+  
