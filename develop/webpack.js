@@ -16,7 +16,7 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'index.js',
+    filename: 'dev.js',
     path: path.resolve(__dirname, '../dist'),
   },
   resolve: {
@@ -41,6 +41,7 @@ module.exports = {
       onBuildEnd: ['yarn start'],
     }),
     new webpack.DefinePlugin({
+      'process.env.PORT': JSON.stringify(3030),
     }),
   ],
   watch: true,
