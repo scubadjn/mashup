@@ -1,4 +1,5 @@
-import { fetchData, Cache, Client } from './client';
+import axios from 'axios';
+import { ServerError, ClientError } from '../lib';
 
 interface ReleaseGroups {
   id: string;
@@ -20,14 +21,23 @@ export interface MusicBrainzPayload {
   relations: Relations[];
 }
 
-export default function fetchMusicBrainz(client: Client, cache: Cache) {
-  return async (mbid: string) => {
-    try {
-      const url = `http://musicbrainz.org/ws/2/artist/${mbid}?&fmt=json&inc=url-rels+release-groups`;
-      const res = await fetchData<MusicBrainzPayload>(client, cache)(url);
-      return res.data;
-    } catch {
-      return null;
+export default async function fetchMusicBrainz(mbid: string): Promise<MusicBrainzPayload> {
+  try {
+    const url = `http://musicbrainz.org/ws/2/artist/${mbid}?&fmt=json&inc=url-rels+release-groups`;
+    const res = await axios.get(url, {
+      timeout: 30000,
+      headers: {
+        'User-Agent': 'mashup/1.0 ( daanin@gmail.com )'
+      },
+    });
+    if (res.status === 200 && res.data) return res.data;
+    throw new ServerError('fetchMusicBrainz');
+  } catch (e) {
+    switch (e?.response?.status) {
+      case 404:
+        throw new ClientError(404, 'not found');
+      default:
+        throw new ServerError('fetchMusicBrainz', e);
     }
   }
 }

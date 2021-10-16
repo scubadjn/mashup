@@ -33,6 +33,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(3030),
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
   ],
 };

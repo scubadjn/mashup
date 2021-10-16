@@ -27,11 +27,11 @@
     "webpack-shell-plugin": "0.5.0"
   },
   "scripts": {
-    "dev": "webpack --config=develop/webpack.js",
-    "start": "nodemon dist/dev.js",
+    "start": "webpack --config=develop/webpack.js",
+    "start:dev": "nodemon build/dev.js",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "test": "jest --runInBand",
     "build": "webpack  --config=deploy/webpack.js",
-    "package": "zip -r dist/api.zip dist/api.min.js"
+    "package": "./build.sh"
   }
 }

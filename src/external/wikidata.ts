@@ -1,4 +1,4 @@
-import { fetchData, Cache, Client } from './client';
+import { fetchData, Client } from './client';
 
 interface SiteLinks {
   site: string;
@@ -18,11 +18,11 @@ export interface WikiDataPayload {
   };
 }
 
-export default function fetchWikiData(client: Client, cache: Cache) {
+export default function fetchWikiData(client: Client) {
   return async (id: string) => {
     try {
       const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=sitelinks`;
-      const res = await fetchData<WikiDataPayload>(client, cache)(url);
+      const res = await fetchData<WikiDataPayload>(client)(url);
       return res.data;
     } catch {
       return null;

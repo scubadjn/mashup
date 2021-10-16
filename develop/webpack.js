@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     filename: 'dev.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../build'),
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -38,10 +38,11 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin({ quiet: true }),
     new WebpackShellPlugin({
-      onBuildEnd: ['yarn start'],
+      onBuildEnd: ['yarn start:dev'],
     }),
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(3030),
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
   ],
   watch: true,

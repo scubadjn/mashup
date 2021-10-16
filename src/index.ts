@@ -1,33 +1,33 @@
 import express from 'express';
-import createExternal from './external';
-import { logger, ServerError, ClientError } from './lib';
+import external from './external';
+import { logger, ServerError, ClientError, createCtx } from './lib';
+import mashup from './mashup';
 
 (async (): Promise<void> => {
   try {
     const app = express();
     const { PORT } = process.env;
-    const external = createExternal();
+    const ctx = createCtx();
 
-    app.set('json spaces', 2)
+    app.set('json spaces', 2);
 
     app.use('/health', (_, res) => {
       res.status(200).json({ status: 'UP' });
     });
 
-    app.get('/v1/mashup/:mbid', async (req, res, next) => {
+    app.get('/v1/mashup/:mbid', async (req, res) => {
       try {
-        logger.info(`[mbid]: ${req.params.mbid}`)
         const { mbid } = req.params;
         const start = + new Date();
-        logger.info(`[FETCHING] - ${mbid}`)
-        const data = 'hello world';
-        logger.info(`[${+new Date() - start} ms] - DONE`)
+        logger.log(`[FETCHING] - ${mbid}`)
+        const data = await mashup(ctx, external, mbid, req.query.refetch !== undefined);
+        logger.log(`[${+new Date() - start} ms] - DONE`)
         res.json(data);
-      } catch (e: unknown | ServerError | Error) {
-        if (e instanceof ServerError) {
-          res.status(500).send(e.message);
-        } else if (e instanceof ClientError) {
+      } catch (e: unknown | ClientError | ServerError | Error) {
+        if (e instanceof ClientError) {
           res.status(e.status).send(e.message);
+        } else if (e instanceof ServerError) {
+          res.status(500).send('Internal Server Error');
         } else {
           res.status(500).send('Internal Server Error')
         }
@@ -35,7 +35,7 @@ import { logger, ServerError, ClientError } from './lib';
     });
 
     app.listen(PORT, () => {
-      logger.info("Server runs on Port", PORT);
+      logger.info('\x1b[34m', 'Mashup runs @', '\x1b[33m', `http://localhost:${PORT}`, '\x1b[37m');
     });
   }
   catch {
