@@ -1,5 +1,6 @@
 import axios from 'axios';
 import NodeCache from 'node-cache';
+import { logger } from '../lib';
 
 export type Cache = ReturnType<typeof createCache>;
 
@@ -13,27 +14,27 @@ export const client = axios.create({
 
 export type Client = typeof client;
 
-export function fetchData<T>(client: Client, cache: Cache) {
+export function fetchData<T>(clientInstance: Client, cache: Cache) {
   return async (url: string): Promise<{ data: T | null, status: number }> => {
     try {
       const start = +new Date();
       const prev = cache.get(url);
       if (prev) {
-        console.log(`[${+new Date() - start} ms] - ${url}`);
+        logger.info(`[${+new Date() - start} ms] - ${url}`);
         return {
           data: prev as T,
           status: 200,
         }
       };
-      const { data, status } = await client.get<T>(url);
+      const { data, status } = await clientInstance.get<T>(url);
       if (!data) {
         return {
           data: null,
-          status: status,
+          status,
         }
       };
       cache.set(url, data);
-      console.log(`[${+new Date() - start} ms] - ${url}`);
+      logger.info(`[${+new Date() - start} ms] - ${url}`);
       return {
         data: data as T,
         status: 200,

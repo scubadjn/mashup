@@ -11,6 +11,7 @@
       "allowJs": false,
       "skipLibCheck": true,
       "baseUrl": ".",
+      "useUnknownInCatchVariables": false,
       "paths": {
         "@types": [
           "./src/@types"
