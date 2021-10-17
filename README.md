@@ -38,17 +38,6 @@ yarn package
 # unzip and install
 ```
 
-## Deploy
-```sh
-yarn install
-yarn build
-# run
-node dist/api.min.js
-# or create zip file
-yarn package
-# unzip and install
-```
-
 ## Deploy with docker
 ```sh
 yarn install
