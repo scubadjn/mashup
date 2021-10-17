@@ -7,6 +7,8 @@ export const client = axios.create({
 
 export type Client = typeof client;
 
+// deprecated
+// TODO remove once error handling is fixed
 export function fetchData<T>(clientInstance: Client) {
   return async (url: string): Promise<{ data: T | null, status: number }> => {
     try {

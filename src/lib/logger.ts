@@ -9,6 +9,11 @@ const logger = {
     // tslint:disable-next-line: no-console
     console.log(...msg)
   },
+  // TODO add presisted storage and log internal server errors that should be fixed
+  error: (...msg: any) => {
+    // tslint:disable-next-line: no-console
+    console.log(...msg)
+  },
 }
 
 export default logger;

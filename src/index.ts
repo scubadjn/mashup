@@ -11,12 +11,14 @@ import mashup from './mashup';
 
     app.set('json spaces', 2);
 
+    // TODO implement healthcheck in production
     app.use('/health', (_, res) => {
       res.status(200).json({ status: 'UP' });
     });
 
     app.get('/v1/mashup/:mbid', async (req, res) => {
       try {
+        // TODO implement request/reponse logging
         const { mbid } = req.params;
         const start = + new Date();
         logger.log(`[FETCHING] - ${mbid}`)

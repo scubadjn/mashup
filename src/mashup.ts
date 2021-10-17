@@ -1,8 +1,8 @@
 import { External } from './external';
-import { CoverArtPayload } from "./external/coverArt";
-import { MusicBrainzPayload } from "./external/musicBrainz";
-import { WikiDataPayload } from "./external/wikidata";
-import { WikipediaPayload } from "./external/wikipedia";
+import { CoverArtPayload } from './external/coverArt';
+import { MusicBrainzPayload } from './external/musicBrainz';
+import { WikiDataPayload } from './external/wikidata';
+import { WikipediaPayload } from './external/wikipedia';
 import { ServerError, Ctx } from './lib';
 
 export const parser = {
@@ -87,7 +87,7 @@ export default async function mashup(ctx: Ctx, external: External, mbid: string,
     mbid: musicBrainz.id,
     name: musicBrainz.name,
     description: parser.wikipedia.getHtml(wikipedia),
-    albums: musicBrainz["release-groups"].map(d => ({
+    albums: musicBrainz['release-groups'].map(d => ({
       id: d.id,
       title: d.title,
       image: parser.converart.getImage(d.id, coverarts) || '',

@@ -35,12 +35,28 @@ yarn build
 node dist/api.min.js
 # or create zip file
 yarn package
+# unzip and install
 ```
 
-# Todos
-- [ ] add tests
-- [ ] improve error handling
-- [ ] improve logging
-- [ ] containerize
+## Deploy
+```sh
+yarn install
+yarn build
+# run
+node dist/api.min.js
+# or create zip file
+yarn package
+# unzip and install
+```
+
+## Deploy with docker
+```sh
+yarn install
+yarn build
+yarn docker:deploy
+```
+
+## TODOs
+- [ ] resolve TODOs
 - [ ] replace node-cache with redis or similar
 

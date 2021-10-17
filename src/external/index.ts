@@ -1,8 +1,8 @@
 import { client } from './client';
-import fetchMusicBrainz from "./musicBrainz"
-import fetchWikiData from "./wikidata"
-import fetchWikiPedia from "./wikipedia"
-import fetchCoverArt from "./coverArt"
+import fetchMusicBrainz from './musicBrainz'
+import fetchWikiData from './wikidata'
+import fetchWikiPedia from './wikipedia'
+import fetchCoverArt from './coverArt'
 
 const external = {
   musicBrainz: (mbid: string) => fetchMusicBrainz(mbid),

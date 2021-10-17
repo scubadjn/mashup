@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+
+  mashup:
+    build:
+      dockerfile: ./deploy/Dockerfile
+      context: ../
+    container_name: mashup
+    restart: always
+    user: "node"
+    ports:
+      - 3030:3030

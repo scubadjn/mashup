@@ -32,6 +32,7 @@
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "test": "jest --runInBand",
     "build": "webpack  --config=deploy/webpack.js",
-    "package": "./build.sh"
+    "package": "./build.sh",
+    "docker:deploy": "docker-compose -f deploy/docker-compose.yml up -d"
   }
 }

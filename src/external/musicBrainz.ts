@@ -36,6 +36,8 @@ export default async function fetchMusicBrainz(mbid: string): Promise<MusicBrain
     switch (e?.response?.status) {
       case 404:
         throw new ClientError(404, 'not found');
+      case 400:
+        throw new ClientError(400, 'Bad request');
       default:
         throw new ServerError('fetchMusicBrainz', e);
     }
